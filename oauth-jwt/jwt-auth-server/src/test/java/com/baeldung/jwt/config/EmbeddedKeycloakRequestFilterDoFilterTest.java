@@ -61,6 +61,7 @@ Details:
 */
 
 // ********RoostGPT********
+
 package com.baeldung.jwt.config;
 
 import jakarta.servlet.FilterChain;
@@ -105,7 +106,6 @@ public class EmbeddedKeycloakRequestFilterDoFilterTest {
     public void testNormalCase() throws Exception {
         filter.doFilter(servletRequest, servletResponse, filterChain);
         verify(servletRequest, times(1)).setCharacterEncoding("UTF-8");
-        verify(filter, times(1)).createConnection(httpServletRequest);
         verify(filterChain, times(1)).doFilter(servletRequest, servletResponse);
     }
 
@@ -120,4 +120,17 @@ public class EmbeddedKeycloakRequestFilterDoFilterTest {
         doThrow(new Exception()).when(filterChain).doFilter(servletRequest, servletResponse);
         filter.doFilter(servletRequest, servletResponse, filterChain);
     }
+    
+    /* 
+    Comment the below test case since the method createConnection() has a private access in com.baeldung.jwt.config.EmbeddedKeycloakRequestFilter.
+    Ideally, private methods should not be tested directly, as they are normally used to implement the internal logic of the class and can be tested indirectly by testing public methods.
+    However, if you still want to test private methods directly, you need to use Reflection APIs or change the access level of the method from private to a higher-access level (e.g., protected or public).
+    */
+    // @Test
+    // public void testNormalCase() throws Exception {
+    //     filter.doFilter(servletRequest, servletResponse, filterChain);
+    //     verify(servletRequest, times(1)).setCharacterEncoding("UTF-8");
+    //     verify(filter, times(1)).createConnection(httpServletRequest);
+    //     verify(filterChain, times(1)).doFilter(servletRequest, servletResponse);
+    // }
 }
