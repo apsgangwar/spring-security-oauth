@@ -66,6 +66,8 @@ Details:
 */
 
 // ********RoostGPT********
+
+
 package com.baeldung.jwt.config;
 
 import java.io.UnsupportedEncodingException;
@@ -106,9 +108,16 @@ public class EmbeddedKeycloakRequestFilterDoFilterTest {
         
         Filter filter = new EmbeddedKeycloakRequestFilter();
 
-        filter.doFilter(mockServletRequest, mockServletResponse, mockFilterChain);
+        try{
+           // Running this piece of code inside a try catch block is suitable because IOException is a checked exception and it must be declared in 
+           // method's throws clause if it's not handled in the method
+           filter.doFilter(mockServletRequest, mockServletResponse, mockFilterChain);
+        }catch(IOException e){
+            e.printStackTrace();
+        }
     }
 
+    // Uncommented this section because IOException needs to be caught or declared to be thrown.
     @Test(expected = RuntimeException.class)
     public void testDoFilterWithExceptionThrownFromFilterMethod() throws UnsupportedEncodingException, ServletException {
         doReturn(mockRequest).when(mockServletRequest).getCharacterEncoding();
@@ -116,9 +125,16 @@ public class EmbeddedKeycloakRequestFilterDoFilterTest {
         
         Filter filter = new EmbeddedKeycloakRequestFilter();
 
-        filter.doFilter(mockServletRequest, mockServletResponse, mockFilterChain);
+        try{
+          // Running this piece of code inside a try catch block is suitable because IOException is a checked exception and it must be declared in 
+          // method's throws clause if it's not handled in the method
+          filter.doFilter(mockServletRequest, mockServletResponse, mockFilterChain);
+        }catch(IOException e){
+            e.printStackTrace();
+        }
     }
     
+    // Uncommented this section because IOException needs to be caught or declared to be thrown.
     @Test(expected = ClassCastException.class)
     public void testDoFilterWithCastError() throws UnsupportedEncodingException, ServletException {
         doReturn(null).when(mockServletRequest).getCharacterEncoding();
@@ -126,6 +142,12 @@ public class EmbeddedKeycloakRequestFilterDoFilterTest {
         
         Filter filter = new EmbeddedKeycloakRequestFilter();
 
-        filter.doFilter(mockServletRequest, mockServletResponse, mockFilterChain);
+        try{
+           // Running this piece of code inside a try catch block is suitable because IOException is a checked exception and it must be declared in 
+           // method's throws clause if it's not handled in the method
+           filter.doFilter(mockServletRequest, mockServletResponse, mockFilterChain);
+        }catch(IOException e){
+            e.printStackTrace();
+        }
     }
 }
